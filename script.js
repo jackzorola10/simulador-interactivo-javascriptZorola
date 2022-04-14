@@ -46,12 +46,12 @@
     for (let i = 0; i < 1; i++) {
         let productSelection = prompt(
             "Selecciona de la lista de productos cual quisieras agregar a vuestro carrito! \n \n Escribe el numero que corresponda, por ejemplo: Pase Anual a conciertos = 4"
-             + "\n - Camiseta $" + (productsArray[0] - (productsArray[0]*descuentoSuperFan)) + " 1"
-              + "\n - Gorra $" + (productsArray[1] - (productsArray[1]*descuentoSuperFan)) + " 2"
-               + "\n - Disco Vinil $" + (productsArray[2] - (productsArray[2]*descuentoSuperFan)) + " 3"
-                + "\n - Pase Anual a conciertos $" + (productsArray[3] - (productsArray[3]*descuentoSuperFan)) + " 4"
-                 + "\n - Disco de Greates Hits firmado $" + (productsArray[4] - (productsArray[4]*descuentoSuperFan)) + " 5"
-                  + "\n - Chamarra roja de la banda $" + (productsArray[5] - (productsArray[5]*descuentoSuperFan)) + " 6");
+             + "\n - (1) Camiseta $" + (productsArray[0] - (productsArray[0]*descuentoSuperFan))
+              + "\n - (2) Gorra $" + (productsArray[1] - (productsArray[1]*descuentoSuperFan)) 
+               + "\n - (3) Disco Vinil $" + (productsArray[2] - (productsArray[2]*descuentoSuperFan))
+                + "\n - (4) Pase Anual a conciertos $" + (productsArray[3] - (productsArray[3]*descuentoSuperFan))
+                 + "\n - (5) Disco de Greates Hits firmado $" + (productsArray[4] - (productsArray[4]*descuentoSuperFan)) 
+                  + "\n - (6) Chamarra roja de la banda $" + (productsArray[5] - (productsArray[5]*descuentoSuperFan)));
 
         console.log("El usuario escogió " + productSelection + " lo cual es igual a " + productsArray[productSelection]);
 
@@ -60,9 +60,9 @@
 
         // Falta validación en caso de que el usuario ingrese un dato no valido
 
-        let continuarPregunta = prompt("Os gustaria seguir comprando? (Si/No)");
+        let continuarPregunta = prompt("Os gustaria seguir añadiendo productos? (Si/No)");
         while (continuarPregunta !== "Si" && continuarPregunta !== "No" ){
-            continuarPregunta = prompt("Por favor indique si vos queres seguir comprando con un 'Si' o un 'No'");  
+            continuarPregunta = prompt("Por favor indique si vos queres seguir añadiendo productos con un 'Si' o un 'No'");  
         }
         console.log("continuarPregunta = " + continuarPregunta);
 
