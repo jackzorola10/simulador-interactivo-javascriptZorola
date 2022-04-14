@@ -33,7 +33,7 @@
             break;
         
         case "No":
-            descuentoSuperFan = 1;
+            descuentoSuperFan = 0;
             break;
     }
     console.log("descuentoSuperFan = " + descuentoSuperFan);
