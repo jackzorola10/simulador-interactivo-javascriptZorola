@@ -40,7 +40,7 @@
     console.log("codigoSuperFan = " + codigoSuperFan);
 
 
-// PREGUNTA SOBRE ADICIÓN DE PRODUCTOS A CARRITO
+// PREGUNTA SOBRE ADICIÓN DE PRODUCTOS A CARRITO - MENU
     
     let carritoSubTotal = 0;
     for (let i = 0; i < 1; i++) {
@@ -74,3 +74,31 @@
     
 
 // CALCULO SUBTOTAL Y OFRECIMIENTO DE PUNTOS (EN CASO DE SER SUPER FAN)
+
+    let puntosAcumulados = Math.random() * 1000;
+    let descuentoDePuntos = puntosAcumulados*.2;
+    let preguntaPuntos = prompt("Tu total hasta ahora es de: $" + carritoSubTotal + " te gustaria aplicar tus puntos acumulados? \n \nHasta ahora tienes " + puntosAcumulados + " puntos" + "\nSi los aplicas te ahorrarias: $" + descuentoDePuntos + "\n(Si/No)");
+    while (preguntaPuntos !== "Si" && preguntaPuntos !== "No" ) {
+        preguntaPuntos = prompt("Por favor indique si vos queres aplicar los puntos con un 'Si' o un 'No'");  
+    }
+    console.log("preguntaPuntos =" + preguntaPuntos);
+    console.log("descuentoDePuntos = " + descuentoDePuntos);
+
+    let total = 0;
+    switch(preguntaPuntos){
+        case "Si":
+            alert("Vuestro total sería: $" + (carritoSubTotal - descuentoDePuntos));
+            total = carritoSubTotal - descuentoDePuntos;
+            break;
+        
+        case "No":
+            alert("Vuestro total sería: $" + carritoSubTotal);
+            total = carritoSubTotal;
+            break;
+    }
+    console.log("El total de la orden es = " + total);
+
+    // JOKE
+
+    prompt("Por favor ponga su tarjeta de credito, fecha de expiración y CVV");
+    alert("Es bromi :D - aquí termina el simulador");
