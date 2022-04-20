@@ -2,10 +2,32 @@
 // Crearemos un carrito para un grupo musical, habrá un pequeño catalogo con multiples productos los cuales el usuario puede decidir si agregar al carrito o no.
 // Adicional crearemos el concepto de "Membresía Premium" lo cual le da acceso a distintos descuentos en cada producto. 
 // Finalmente le daremos una cantidad de puntos aleatorios al usuario, los cuales en su total del carrito le permitiremos que use para pagar menos si así lo desea.
-// Cada selector (Si/No) viene acompañado con un 'while' que asegura el input del usuario, este probablemente pueda cambiarse por una función, pero no me he dado el tiempo de hacerlo.
+// Cada selector (Si/No) viene acompañado con una validación 'validacionSiNo' que asegura el input del usuario.
+
+// FUNCIONES
+    // validacionSiNo = La funcion principal es la de validacion del input del usuario el cual nos permite garantizar que el usuario seguira dentro de un esquema. 
+    let savedvalidacionSiNo;
+    function validacionSiNo (respuesta, mensaje) {
+        while (respuesta !== "Si" && respuesta !== "No" )
+        {
+            respuesta = prompt(mensaje + " con 'Si' o 'No'"); 
+            console.log("la respuesta de funcion fue = " + respuesta);
+        }
+        savedvalidacionSiNo = respuesta;
+    }
+
+    // varObj & present = De manera que pudiera debuggear mas facilmente coloque multiples console.logs a lo largo del codigo, para poder especificar de que valor estaba hablando use un arrow function el cual transforma a un string el nombre de la variable con "varObj" y luego presentarlo con "present".
+
+    const varToString = varObj => Object.keys(varObj)[0]
+    let displayName;
+
+    function present (valor) {
+        console.log("El valor de " + displayName + " es = " + valor);
+    }
+
 
 // CATALOGO DE PRODUCTOS 
-//Abajo encontrarás multiples variables con precios adjuntons a cada uno de ellos y un array con los nombres para selección del usuario.
+    //Abajo encontrarás multiples variables con precios adjuntons a cada uno de ellos y un array con los nombres para selección del usuario.
     let camiseta = 300;
     let gorra = 210;
     let vinil = 310;
@@ -20,14 +42,16 @@
     alert("Contamos con los siguientes productos: \n - Camiseta $" + productsArray[0] + "\n - Gorra $" + productsArray[1] + "\n - Disco Vinil $" + productsArray[2] + "\n - Pase Anual a conciertos $" + productsArray[3] + "\n - Disco de Greates Hits firmado $" + productsArray[4] + "\n - Chamarra roja de la banda $" + productsArray[5]);
 
 // VALIDACIÓN INICIAL CODIGO SUPERFAN
-// El codigo SuperFan lo unico que hará es cambiar la variable 'descuentoSuperFan' para que pueda ser utilizada en darle un 30% de descuento a los precios mencionados arriba en el caso de que el usuario haya dicho que SI.
+    // El codigo SuperFan lo unico que hará es cambiar la variable 'descuentoSuperFan' para que pueda ser utilizada en darle un 30% de descuento a los precios mencionados arriba en el caso de que el usuario haya dicho que SI.
 
     let respuestaSuperFan = prompt("Antes de iniciar, queremos preguntarte, tienes un codigo Super Fan para mejores descuentos? (Si/No)");
-    while (respuestaSuperFan !== "Si" && respuestaSuperFan !== "No" ){
-        respuestaSuperFan = prompt("Por favor indique si tiene un codigo Super Fan con 'Si' o 'No'");  
-    }
-    console.log("respuestaSuperFan = " + respuestaSuperFan);
 
+    // VALIDATION STEP
+    validacionSiNo (respuestaSuperFan, "Por favor indique si tiene un codigo Super Fan")
+    respuestaSuperFan = savedvalidacionSiNo;
+    displayName = varToString({ respuestaSuperFan });
+    present(respuestaSuperFan);
+    
     let descuentoSuperFan
     let codigoSuperFan
     switch(respuestaSuperFan){
@@ -40,8 +64,11 @@
             descuentoSuperFan = 0;
             break;
     }
-    console.log("descuentoSuperFan = " + descuentoSuperFan);
-    console.log("codigoSuperFan = " + codigoSuperFan);
+    displayName = varToString({ descuentoSuperFan });
+    present(descuentoSuperFan);
+    displayName = varToString({ codigoSuperFan });
+    present(codigoSuperFan);
+
 
 
 // PREGUNTA SOBRE ADICIÓN DE PRODUCTOS A CARRITO - MENU
@@ -65,7 +92,9 @@
 
         secureCarritoSubTotal = carritoSubTotal 
         carritoSubTotal = carritoSubTotal + (productsArray[productSelection - 1] - (productsArray[productSelection - 1]*descuentoSuperFan));
-        console.log("carritoSubTotal = $" + carritoSubTotal);
+
+        displayName = varToString({ carritoSubTotal });
+        present(carritoSubTotal);
 
         // Validation de input del usuario:
         // Usa un switch para usar el default como cualquier otro escenario fuera de los deseados del usuario. En el caso de que este cause que carritoSubTotal sea NaN lo reestablece usando secureCarritoSubTotal y luego reinicia el bucle for.
@@ -94,29 +123,36 @@
         // Verificación de repetición: 
         // Utiliza una validación sencilla que produce que el bucle se repita si el usuario escoge Si.
         let continuarPregunta = prompt("Os gustaria seguir añadiendo productos? (Si/No)");
-        while (continuarPregunta !== "Si" && continuarPregunta !== "No" ){
-            continuarPregunta = prompt("Por favor indique si vos queres seguir añadiendo productos con un 'Si' o un 'No'");  
-        }
-        console.log("continuarPregunta = " + continuarPregunta);
+
+        //VALIDATION STEP
+        validacionSiNo(continuarPregunta, "Por favor indique si vos queres seguir añadiendo productos");
+        continuarPregunta = savedvalidacionSiNo;
+        displayName = varToString({ continuarPregunta });
+        present(continuarPregunta);
 
         if (continuarPregunta == "Si") {
             i--;
         }
-        console.log("El valor de 'i' es = " + i)
+
+        displayName = varToString({ i });
+        present(i);
 
     }
     
 
 // CALCULO SUBTOTAL Y OFRECIMIENTO DE PUNTOS (EN CASO DE SER SUPER FAN)
-// Genera un numero random que luego multiplico para que cree un supuesto descuento equivalente a unos puntos acumulados del usuario para la simulación. El usuario puede luego decidir si aplicarlos o no a su Subtotal. El descuentoDePuntos es del 20% de los puntos, por arbitrariedad, solo porque noto que es una practica comun de retail que los puntos no representen 1:1 el descuento.
+    // Genera un numero random que luego multiplico para que cree un supuesto descuento equivalente a unos puntos acumulados del usuario para la simulación. El usuario puede luego decidir si aplicarlos o no a su Subtotal. El descuentoDePuntos es del 20% de los puntos, por arbitrariedad, solo porque noto que es una practica comun de retail que los puntos no representen 1:1 el descuento.
     let puntosAcumulados = Math.random() * 1000;
     let descuentoDePuntos = puntosAcumulados*.2;
     let preguntaPuntos = prompt("Tu total hasta ahora es de: $" + carritoSubTotal + " os gustaria aplicar vuestros puntos de descuento?" + "\n \nHasta ahora tienes " + puntosAcumulados + " puntos" + "\nSi los aplicas te ahorrarias: $" + descuentoDePuntos + "\n(Si/No)");
-    while (preguntaPuntos !== "Si" && preguntaPuntos !== "No" ) {
-        preguntaPuntos = prompt("Por favor indique si vos queres aplicar los puntos con un 'Si' o un 'No'");  
-    }
-    console.log("preguntaPuntos =" + preguntaPuntos);
-    console.log("descuentoDePuntos = " + descuentoDePuntos);
+
+    // VALIDATION STEP
+    validacionSiNo(preguntaPuntos, "Por favor indique si vos queres aplicar los puntos");
+    preguntaPuntos = savedvalidacionSiNo;
+    displayName = varToString({ preguntaPuntos });
+    present(preguntaPuntos);
+    displayName = varToString({ descuentoDePuntos });
+    present(descuentoDePuntos);
 
     let total = 0;
     switch(preguntaPuntos){
@@ -130,7 +166,8 @@
             total = carritoSubTotal;
             break;
     }
-    console.log("El total de la orden es = " + total);
+    displayName = varToString({ total });
+    present(total);
 
 // JOKE
 // Chascarrillo for the lolz.
